@@ -1,12 +1,36 @@
 ﻿<Window x:Class="school_assignment_reminders.MainWindow"
+        Name="RootWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:school_assignment_reminders"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:models="clr-namespace:school_assignment_reminders.Models"
+        xmlns:viewModels="clr-namespace:school_assignment_reminders.ViewModels"
+        Title="MainWindow"
+        Width="525"
+        Height="350"
+        d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}"
+        mc:Ignorable="d">
+    <DockPanel Margin="10">
+        <Label Content="Classes"
+               DockPanel.Dock="Top"
+               FontFamily="Century Gothic"
+               FontSize="24" />
+        <Separator DockPanel.Dock="Top" />
+        <ItemsControl ItemsSource="{Binding Classes}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel>
+                        <Button Width="20"
+                                CommandParameter="{Binding .}"
+                                Command="{Binding ElementName=RootWindow, Path=DataContext.NewCommand}"
+                                Content="+"
+                                DockPanel.Dock="Right" />
+                        <Label Content="{Binding Path=FullName}" />
+                    </DockPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </DockPanel>
 </Window>

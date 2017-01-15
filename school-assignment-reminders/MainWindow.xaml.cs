@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using school_assignment_reminders.ViewModels;
 
 namespace school_assignment_reminders
 {
@@ -23,6 +24,7 @@ namespace school_assignment_reminders
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainWindowViewModel();
         }
     }
 }
