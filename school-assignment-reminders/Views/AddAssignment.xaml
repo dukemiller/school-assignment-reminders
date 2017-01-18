@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="school_assignment_reminders.Views.AddAssignment"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:local="clr-namespace:school_assignment_reminders.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:school_assignment_reminders.Models"
+             Background="White"
+             d:DataContext="{d:DesignInstance models:Class}"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <models:Assignment x:Key="Assignment" />
+    </UserControl.Resources>
+    <StackPanel Margin="16">
+        <TextBlock Margin="10"
+                   FontSize="18"
+                   Text="{Binding Name,
+                                  UpdateSourceTrigger=PropertyChanged,
+                                  StringFormat=Adding assignment for {0}}" />
+        <Separator />
+        <DockPanel Margin="10">
+            <Label Content="Assignment name: "
+                   DockPanel.Dock="Left"
+                   FontSize="18" />
+            <TextBox materialDesign:HintAssist.Hint="e.g. Homework #4"
+                     FontSize="18"
+                     Text="{Binding Source={StaticResource Assignment},
+                                    Path=Name,
+                                    UpdateSourceTrigger=PropertyChanged}" />
+        </DockPanel>
+        <DockPanel Margin="10">
+            <Label Content="Due on: "
+                   DockPanel.Dock="Left"
+                   FontSize="18" />
+            <DatePicker materialDesign:HintAssist.Hint="e.g. 1/24/2017"
+                        CalendarStyle="{StaticResource StyleCalendar}"
+                        FontSize="18"
+                        Text="{Binding Source={StaticResource Assignment},
+                                    Path=Due,
+                                    UpdateSourceTrigger=PropertyChanged}" />
+        </DockPanel>
+        <DockPanel Margin="10">
+            <Label Content="Any other notes: "
+                   DockPanel.Dock="Left"
+                   FontSize="18" />
+            <TextBox materialDesign:HintAssist.Hint="e.g. Be sure to study for this on monday"
+                     FontSize="18"
+                     Text="{Binding Source={StaticResource Assignment},
+                                    Path=Notes,
+                                    UpdateSourceTrigger=PropertyChanged}" />
+        </DockPanel>
+
+        <Button Margin="10"
+                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                CommandParameter="{StaticResource Assignment}"
+                FontSize="22"
+                IsDefault="True"
+                Style="{DynamicResource MaterialDesignFlatButton}">
+            Submit
+        </Button>
+        <Button Margin="10"
+                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                FontSize="22"
+                Style="{DynamicResource MaterialDesignFlatButton}">
+            Cancel
+        </Button>
+    </StackPanel>
+</UserControl>
