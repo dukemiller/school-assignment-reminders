@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using MaterialDesignThemes.Wpf;
 using school_assignment_reminders.Models;
 
 namespace school_assignment_reminders.ViewModels
