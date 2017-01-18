@@ -149,6 +149,9 @@
     <Window.DataContext>
         <viewModels:MainWindowViewModel />
     </Window.DataContext>
+    <Window.InputBindings>
+        <KeyBinding Modifiers="Alt" Key="OemPlus" Command="{Binding AddClassCommand}"/>
+    </Window.InputBindings>
     <materialDesign:DialogHost CloseOnClickAway="True" >
         <DockPanel Margin="10">
             <DockPanel DockPanel.Dock="Top">
