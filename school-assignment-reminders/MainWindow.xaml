@@ -149,7 +149,7 @@
     <Window.DataContext>
         <viewModels:MainWindowViewModel />
     </Window.DataContext>
-    <materialDesign:DialogHost>
+    <materialDesign:DialogHost CloseOnClickAway="True" >
         <DockPanel Margin="10">
             <DockPanel DockPanel.Dock="Top">
                 <Button Command="{Binding AddClassCommand}"
@@ -161,7 +161,7 @@
                        FontSize="32" />
             </DockPanel>
             <Separator DockPanel.Dock="Top" />
-            <ScrollViewer FocusVisualStyle="{x:Null}" HorizontalScrollBarVisibility="Auto">
+            <ScrollViewer FocusVisualStyle="{x:Null}" VerticalScrollBarVisibility="Auto">
                 <ListBox HorizontalContentAlignment="Stretch"
                          FocusVisualStyle="{x:Null}"
                          ItemTemplate="{StaticResource ClassTemplate}"

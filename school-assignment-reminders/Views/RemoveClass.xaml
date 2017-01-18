@@ -12,11 +12,14 @@
                 CommandParameter="{StaticResource TrueValue}"
                 FontSize="18"
                 IsDefault="True"
+                IsTabStop="False"
                 Style="{DynamicResource MaterialDesignFlatButton}">
             Confirm
         </Button>
         <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
                 Content="Cancel"
+                IsCancel="True"
+                IsTabStop="False"
                 FontSize="18"
                 Style="{DynamicResource MaterialDesignFlatButton}" />
     </StackPanel>

@@ -59,15 +59,15 @@
                 </TextBox.Text>
             </TextBox>
         </DockPanel>
-
         <Button Margin="10"
                 Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
                 CommandParameter="{StaticResource Class}"
                 Content="Submit"
                 FontSize="22"
+                IsTabStop="False"
                 IsDefault="True">
             <Button.Style>
-                <Style BasedOn="{StaticResource MaterialDesignFlatButton}" TargetType="Button">
+                <Style BasedOn="{StaticResource MaterialDesignFlatButton}" TargetType="{x:Type Button}">
                     <Setter Property="IsEnabled" Value="False" />
                     <Style.Triggers>
                         <MultiDataTrigger>
@@ -84,6 +84,8 @@
         <Button Margin="10"
                 Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
                 Content="Cancel"
+                IsTabStop="False"
+                IsCancel="True"
                 FontSize="22"
                 Style="{DynamicResource MaterialDesignFlatButton}" />
     </StackPanel>

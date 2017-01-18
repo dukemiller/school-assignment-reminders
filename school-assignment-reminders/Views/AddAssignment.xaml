@@ -36,6 +36,7 @@
                    FontSize="18" />
             <DatePicker materialDesign:HintAssist.Hint="e.g. 1/24/2017"
                         CalendarStyle="{StaticResource StyleCalendar}"
+                        FocusVisualStyle="{x:Null}"
                         FontSize="18"
                         Text="{Binding Source={StaticResource Assignment},
                                     Path=Due,
@@ -56,6 +57,7 @@
                 Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
                 CommandParameter="{StaticResource Assignment}"
                 FontSize="22"
+                IsTabStop="False"
                 IsDefault="True"
                 Style="{DynamicResource MaterialDesignFlatButton}">
             Submit
@@ -63,6 +65,8 @@
         <Button Margin="10"
                 Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
                 FontSize="22"
+                IsTabStop="False"
+                IsCancel="True"
                 Style="{DynamicResource MaterialDesignFlatButton}">
             Cancel
         </Button>
