@@ -1,36 +1,102 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MaterialDesignThemes.Wpf;
 using school_assignment_reminders.Models;
+using school_assignment_reminders.Views;
 
 namespace school_assignment_reminders.ViewModels
 {
-    public class MainWindowViewModel: ViewModelBase
+    public class MainWindowViewModel : ViewModelBase
     {
+        private ObservableCollection<Class> _classes;
+        private Assignment _selectedAssignment;
+        private Class _selectedClass;
+
+        // 
+
         public MainWindowViewModel()
         {
-            Classes = new ObservableCollection<Class>
+            Classes = new ObservableCollection<Class>();
+            
+
+            Classes.CollectionChanged += (sender, args) =>
             {
-                new Class {Title = "IFT 383", Name = "Shell and Script Program/UNIX"},
-                new Class {Title = "SER 402", Name = "Computing Capstone II"},
-                new Class {Title = "SER 416", Name = "Software Enterprise: Proj & Proc"},
-                new Class {Title = "SER 423", Name = "Mobile Systems"}
+                // SettingsService.Save();
             };
 
-            NewCommand = new RelayCommand<Class>(_ => MessageBox.Show(_.Name));
+            // 
+
+            AddAssignmentCommand = new RelayCommand(AddAssignment);
+            AddClassCommand = new RelayCommand(AddClass);
+            RemoveClassCommand = new RelayCommand(RemoveClass);
+            RemoveAssignmentCommand = new RelayCommand(() => SelectedClass.Assignments.Remove(SelectedAssignment));
+        }
+        
+
+        // 
+
+        public Class SelectedClass
+        {
+            get { return _selectedClass; }
+            set { Set(() => SelectedClass, ref _selectedClass, value); }
         }
 
-        private ObservableCollection<Class> _classes;
-
+        public Assignment SelectedAssignment
+        {
+            get { return _selectedAssignment; }
+            set { Set(() => SelectedAssignment, ref _selectedAssignment, value); }
+        }
+        
         public ObservableCollection<Class> Classes
         {
             get { return _classes; }
             set { Set(() => Classes, ref _classes, value); }
         }
 
-        public RelayCommand<Class> NewCommand { get; set; }
+        // 
+
+        public RelayCommand AddAssignmentCommand { get; set; }
+
+        public RelayCommand AddClassCommand { get; set; }
+
+        public RelayCommand RemoveClassCommand { get; set; }
+
+        public RelayCommand RemoveAssignmentCommand { get; set; }
+
+        // 
+
+        private async void AddAssignment()
+        {
+            var selected = SelectedClass;
+            var view = new AddAssignment
+            {
+                DataContext = selected
+            };
+            var result = await DialogHost.Show(view) as Assignment;
+            if (result != null)
+                selected.Assignments.Add(result);
+        }
+
+        private async void AddClass()
+        {
+            var view = new AddClass();
+            var result = await DialogHost.Show(view) as Class;
+            if (result != null)
+                Classes.Add(result);
+        }
+
+        private async void RemoveClass()
+        {
+            var selected = SelectedClass;
+            var view = new RemoveClass();
+            var result = await DialogHost.Show(view) as bool?;
+            if (result ?? false)
+                Classes.Remove(selected);
+        }
     }
 }
