@@ -1,5 +1,4 @@
 ﻿<Window x:Class="school_assignment_reminders.MainWindow"
-        Name="RootWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,6 +7,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:models="clr-namespace:school_assignment_reminders.Models"
         xmlns:viewModels="clr-namespace:school_assignment_reminders.ViewModels"
+        xmlns:views="clr-namespace:school_assignment_reminders.Views"
+        Name="RootElement"
         Title="MainWindow"
         Width="650"
         Height="450"
@@ -17,25 +18,156 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         mc:Ignorable="d">
-    <DockPanel Margin="10">
-        <Label Content="Classes"
-               DockPanel.Dock="Top"
-               FontFamily="Century Gothic"
-               FontSize="24" />
-        <Separator DockPanel.Dock="Top" />
-        <ItemsControl ItemsSource="{Binding Classes}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <DockPanel>
-                        <Button Width="20"
-                                CommandParameter="{Binding .}"
-                                Command="{Binding ElementName=RootWindow, Path=DataContext.NewCommand}"
+    <Window.Resources>
+
+        <Style TargetType="ListBoxItem">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+            <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+            <Setter Property="Padding" Value="2,0,0,0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <Border x:Name="Bd"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="{TemplateBinding Padding}"
+                                SnapsToDevicePixels="true">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter TargetName="Bd" Property="Background" Value="{x:Null}" />
+                                <Setter Property="Foreground" Value="{x:Null}" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="Transparent" />
+                            </Trigger>
+                            <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
+                                <Setter Property="IsSelected" Value="True" />
+                                <Setter Property="Background" Value="{x:Null}" />
+                                <Setter Property="BorderBrush" Value="{x:Null}" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{x:Null}" />
+                    <Setter Property="BorderBrush" Value="{x:Null}" />
+                </Trigger>
+
+            </Style.Triggers>
+        </Style>
+
+        <!--  Assignment  -->
+        <DataTemplate x:Key="AssignmentTemplate" DataType="{x:Type models:Assignment}">
+            <DockPanel ToolTip="{Binding Notes}">
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                    <StackPanel.Resources>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="Opacity" Value="0.2" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=StackPanel}, Path=IsMouseOver}" Value="True">
+                                    <Setter Property="Opacity" Value="1.0" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Resources>
+                    <Button Command="{Binding RelativeSource={RelativeSource FindAncestor,
+                                                                             AncestorType={x:Type Window}},
+                                              Path=DataContext.RemoveAssignmentCommand}"
+                            CommandParameter="{Binding .}"
+                            Content="-"
+                            DockPanel.Dock="Right"
+                            FocusVisualStyle="{x:Null}"
+                            FontSize="24"
+                            Foreground="Red"
+                            Style="{StaticResource MaterialDesignToolButton}" />
+                </StackPanel>
+                <Label Margin="0"
+                       VerticalAlignment="Center"
+                       Content="---" />
+                <Label Margin="0"
+                       Content="{Binding Name}"
+                       FontSize="18"
+                       Style="{StaticResource MaterialDesignLabel}" />
+                <Label VerticalAlignment="Center"
+                       Content="{Binding DueTime}"
+                       FontSize="18"
+                       Foreground="Gray"
+                       Opacity="0.60"
+                       Style="{StaticResource MaterialDesignLabel}" />
+            </DockPanel>
+        </DataTemplate>
+
+        <!--  Class  -->
+        <DataTemplate x:Key="ClassTemplate" DataType="{x:Type models:Class}">
+            <StackPanel>
+                <DockPanel Margin="0">
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                        <StackPanel.Resources>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="Opacity" Value="0.2" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=StackPanel}, Path=IsMouseOver}" Value="True">
+                                        <Setter Property="Opacity" Value="1.0" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Resources>
+                        <Button Command="{Binding ElementName=RootElement,
+                                                  Path=DataContext.AddAssignmentCommand}"
                                 Content="+"
-                                DockPanel.Dock="Right" />
-                        <Label Content="{Binding Path=FullName}" />
-                    </DockPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </DockPanel>
+                                Style="{StaticResource SidebuttonStyle}" />
+                        <Button Command="{Binding ElementName=RootElement,
+                                                  Path=DataContext.RemoveClassCommand}"
+                                Content="-"
+                                Foreground="Red"
+                                Style="{StaticResource SidebuttonStyle}" />
+                    </StackPanel>
+                    <Label Content="{Binding Path=FullName}" FontSize="18" />
+                </DockPanel>
+                <ListBox HorizontalContentAlignment="Stretch"
+                         DockPanel.Dock="Bottom"
+                         FocusVisualStyle="{x:Null}"
+                         ItemTemplate="{StaticResource AssignmentTemplate}"
+                         ItemsSource="{Binding Assignments}"
+                         SelectedItem="{Binding ElementName=RootElement,
+                                                Path=DataContext.SelectedAssignment}" />
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    <Window.DataContext>
+        <viewModels:MainWindowViewModel />
+    </Window.DataContext>
+    <materialDesign:DialogHost>
+        <DockPanel Margin="10">
+            <DockPanel DockPanel.Dock="Top">
+                <Button Command="{Binding AddClassCommand}"
+                        Content="+"
+                        Foreground="Green"
+                        Style="{StaticResource SidebuttonStyle}" />
+                <Label Content="Classes"
+                       FontFamily="Century Gothic"
+                       FontSize="32" />
+            </DockPanel>
+            <Separator DockPanel.Dock="Top" />
+            <ScrollViewer FocusVisualStyle="{x:Null}" HorizontalScrollBarVisibility="Auto">
+                <ListBox HorizontalContentAlignment="Stretch"
+                         FocusVisualStyle="{x:Null}"
+                         ItemTemplate="{StaticResource ClassTemplate}"
+                         ItemsSource="{Binding Classes}"
+                         SelectedItem="{Binding SelectedClass}" />
+            </ScrollViewer>
+        </DockPanel>
+    </materialDesign:DialogHost>
 </Window>
