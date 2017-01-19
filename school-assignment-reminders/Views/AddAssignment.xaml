@@ -36,11 +36,11 @@
                    FontSize="18" />
             <DatePicker materialDesign:HintAssist.Hint="e.g. 1/24/2017"
                         CalendarStyle="{StaticResource StyleCalendar}"
-                        FocusVisualStyle="{x:Null}"
-                        FontSize="18"
-                        Text="{Binding Source={StaticResource Assignment},
+                        SelectedDate="{Binding Source={StaticResource Assignment},
                                     Path=Due,
-                                    UpdateSourceTrigger=PropertyChanged}" />
+                                    UpdateSourceTrigger=PropertyChanged}"
+                        FocusVisualStyle="{x:Null}"
+                        FontSize="18"  />
         </DockPanel>
         <DockPanel Margin="10">
             <Label Content="Any other notes: "
