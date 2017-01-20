@@ -56,7 +56,7 @@ namespace school_assignment_reminders.Models
         public string DueTime
             => DaysUntilDue > 1
             ? $"{DaysUntilDue} days remaining"
-                : DaysUntilDue == 1 ? $"{DaysUntilDue} day remaining" 
+                : DaysUntilDue == 1 ? "Due tomorrow" 
                 : DaysUntilDue == 0 
                     ? "Due today" 
                     : "";

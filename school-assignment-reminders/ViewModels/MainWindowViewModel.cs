@@ -66,7 +66,7 @@ namespace school_assignment_reminders.ViewModels
         public RelayCommand RemoveAssignmentCommand { get; set; }
 
         // 
-
+        
         private async void AddAssignment()
         {
             var selected = SelectedClass;
