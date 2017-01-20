@@ -18,8 +18,10 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         mc:Ignorable="d">
+    <Window.DataContext>
+        <Binding Path="Main" Source="{StaticResource Locator}" />
+    </Window.DataContext>
     <Window.Resources>
-
         <Style TargetType="ListBoxItem">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
@@ -146,13 +148,12 @@
             </StackPanel>
         </DataTemplate>
     </Window.Resources>
-    <Window.DataContext>
-        <viewModels:MainWindowViewModel />
-    </Window.DataContext>
     <Window.InputBindings>
-        <KeyBinding Modifiers="Alt" Key="OemPlus" Command="{Binding AddClassCommand}"/>
+        <KeyBinding Key="OemPlus"
+                    Command="{Binding AddClassCommand}"
+                    Modifiers="Alt" />
     </Window.InputBindings>
-    <materialDesign:DialogHost CloseOnClickAway="True" >
+    <materialDesign:DialogHost CloseOnClickAway="True">
         <DockPanel Margin="10">
             <DockPanel DockPanel.Dock="Top">
                 <Button Command="{Binding AddClassCommand}"

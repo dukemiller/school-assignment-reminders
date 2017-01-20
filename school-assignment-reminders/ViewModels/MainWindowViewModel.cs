@@ -7,6 +7,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MaterialDesignThemes.Wpf;
 using school_assignment_reminders.Models;
+using school_assignment_reminders.Services.Interfaces;
 using school_assignment_reminders.Views;
 
 namespace school_assignment_reminders.ViewModels
@@ -16,18 +17,14 @@ namespace school_assignment_reminders.ViewModels
         private ObservableCollection<Class> _classes;
         private Assignment _selectedAssignment;
         private Class _selectedClass;
+        private readonly ISettingsService _settings;
 
         // 
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(ISettingsService settings)
         {
-            Classes = new ObservableCollection<Class>();
-            
-
-            Classes.CollectionChanged += (sender, args) =>
-            {
-                // SettingsService.Save();
-            };
+            _settings = settings;
+            Classes = _settings.Classes;
 
             // 
 
@@ -79,7 +76,10 @@ namespace school_assignment_reminders.ViewModels
             };
             var result = await DialogHost.Show(view) as Assignment;
             if (result != null)
+            {
                 selected.Assignments.Add(result);
+                _settings.Save();
+            }
         }
 
         private async void AddClass()
@@ -87,7 +87,10 @@ namespace school_assignment_reminders.ViewModels
             var view = new AddClass();
             var result = await DialogHost.Show(view) as Class;
             if (result != null)
+            {
                 Classes.Add(result);
+                _settings.Save();
+            }
         }
 
         private async void RemoveClass()
@@ -96,7 +99,10 @@ namespace school_assignment_reminders.ViewModels
             var view = new RemoveClass();
             var result = await DialogHost.Show(view) as bool?;
             if (result ?? false)
+            {
                 Classes.Remove(selected);
+                _settings.Save();
+            }
         }
     }
 }

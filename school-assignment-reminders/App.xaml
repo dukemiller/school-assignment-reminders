@@ -26,6 +26,7 @@
 
             <system:Boolean x:Key="FalseValue">False</system:Boolean>
             <system:Boolean x:Key="TrueValue">True</system:Boolean>
+            <local:ViewModelLocator x:Key="Locator" />
 
             <Style x:Key="StyleCalendar" TargetType="{x:Type Calendar}">
                 <Setter Property="Template">
