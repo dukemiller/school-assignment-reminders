@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -17,6 +18,7 @@ namespace school_assignment_reminders.ViewModels
         private ObservableCollection<Class> _classes;
         private Assignment _selectedAssignment;
         private Class _selectedClass;
+        private readonly Timer _timer;
         private readonly ISettingsService _settings;
 
         // 
@@ -25,6 +27,20 @@ namespace school_assignment_reminders.ViewModels
         {
             _settings = settings;
             Classes = _settings.Classes;
+
+            // refresh the assignment dates every hour
+            _timer = new Timer();
+            _timer.Interval = 1000 * 60 * 60; 
+            _timer.Elapsed += (sender, args) => 
+            {
+                foreach (var @class in Classes)
+                    foreach (var assignment in @class.Assignments)
+                    {
+                        assignment.RaisePropertyChanged("DueTime");
+                        assignment.RaisePropertyChanged("DaysUntilDue");
+                    }
+            };
+            _timer.Enabled = true;
 
             // 
 
