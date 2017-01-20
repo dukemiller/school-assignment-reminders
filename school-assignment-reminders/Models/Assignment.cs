@@ -13,7 +13,6 @@ namespace school_assignment_reminders.Models
     {
         private string _name;
         private string _notes;
-        private bool _completed;
         private DateTime _due;
 
         public Assignment()
@@ -33,13 +32,6 @@ namespace school_assignment_reminders.Models
         {
             get { return _notes; }
             set { Set(() => Notes, ref _notes, value); }
-        }
-        
-        [XmlAttribute("completed")]
-        public bool Completed
-        {
-            get { return _completed; }
-            set { Set(() => Completed, ref _completed, value); }
         }
 
         [XmlAttribute("due_at")]
