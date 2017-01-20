@@ -11,7 +11,7 @@
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:viewModels="clr-namespace:school_assignment_reminders.ViewModels"
              xmlns:views="clr-namespace:school_assignment_reminders.Views"
-             StartupUri="MainWindow.xaml"
+             StartupUri="Views/MainWindow.xaml"
              mc:Ignorable="d">
     <Application.Resources>
         <ResourceDictionary>
