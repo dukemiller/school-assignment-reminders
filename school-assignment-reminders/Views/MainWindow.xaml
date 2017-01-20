@@ -9,7 +9,7 @@
         xmlns:viewModels="clr-namespace:school_assignment_reminders.ViewModels"
         xmlns:views="clr-namespace:school_assignment_reminders.Views"
         Name="RootElement"
-        Title="MainWindow"
+        Title="School assignment reminders"
         Width="650"
         Height="450"
         d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}"
