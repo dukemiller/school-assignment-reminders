@@ -87,6 +87,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Classes\NotEmptyValidationRule.cs" />
+    <Compile Include="Services\Interfaces\ISettingsService.cs" />
+    <Compile Include="Services\XmlSettingsService.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\AddAssignment.xaml.cs">
       <DependentUpon>AddAssignment.xaml</DependentUpon>
