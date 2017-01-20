@@ -50,7 +50,7 @@ namespace school_assignment_reminders.Models
         }
 
         [XmlIgnore]
-        private int DaysUntilDue => Due.Day - DateTime.Now.Day;
+        private int DaysUntilDue => (Due - DateTime.Now).Days;
 
         [XmlIgnore]
         public string DueTime
