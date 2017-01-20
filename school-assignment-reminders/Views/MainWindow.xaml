@@ -12,6 +12,7 @@
         Title="School assignment reminders"
         Width="650"
         Height="450"
+        FocusVisualStyle="{x:Null}"
         d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
@@ -153,7 +154,7 @@
                     Command="{Binding AddClassCommand}"
                     Modifiers="Alt" />
     </Window.InputBindings>
-    <materialDesign:DialogHost CloseOnClickAway="True">
+    <materialDesign:DialogHost CloseOnClickAway="True" FocusVisualStyle="{x:Null}">
         <DockPanel Margin="10">
             <DockPanel DockPanel.Dock="Top">
                 <Button Command="{Binding AddClassCommand}"
