@@ -50,7 +50,7 @@ namespace school_assignment_reminders.Models
         }
 
         [XmlIgnore]
-        private int DaysUntilDue => (Due - DateTime.Now).Days;
+        private int DaysUntilDue => (int) Math.Ceiling((Due - DateTime.Now).TotalHours / 24);
 
         [XmlIgnore]
         public string DueTime
