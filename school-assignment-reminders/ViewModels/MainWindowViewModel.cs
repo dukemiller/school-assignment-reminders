@@ -31,7 +31,7 @@ namespace school_assignment_reminders.ViewModels
             AddAssignmentCommand = new RelayCommand(AddAssignment);
             AddClassCommand = new RelayCommand(AddClass);
             RemoveClassCommand = new RelayCommand(RemoveClass);
-            RemoveAssignmentCommand = new RelayCommand(() => SelectedClass.Assignments.Remove(SelectedAssignment));
+            RemoveAssignmentCommand = new RelayCommand(RemoveAssignment);
         }
         
 
@@ -103,6 +103,12 @@ namespace school_assignment_reminders.ViewModels
                 Classes.Remove(selected);
                 _settings.Save();
             }
+        }
+
+        private void RemoveAssignment()
+        {
+            SelectedClass.Assignments.Remove(SelectedAssignment);
+            _settings.Save();
         }
     }
 }
