@@ -8,7 +8,7 @@ using GalaSoft.MvvmLight.Command;
 using MaterialDesignThemes.Wpf;
 using school_assignment_reminders.Models;
 using school_assignment_reminders.Services.Interfaces;
-using school_assignment_reminders.Views;
+using school_assignment_reminders.Views.Dialogs;
 
 namespace school_assignment_reminders.ViewModels
 {

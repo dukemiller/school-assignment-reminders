@@ -91,13 +91,13 @@
     <Compile Include="Services\XmlSettingsService.cs" />
     <Compile Include="ViewModelLocator.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="Views\AddAssignment.xaml.cs">
+    <Compile Include="Views\Dialogs\AddAssignment.xaml.cs">
       <DependentUpon>AddAssignment.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AddClass.xaml.cs">
+    <Compile Include="Views\Dialogs\AddClass.xaml.cs">
       <DependentUpon>AddClass.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\RemoveClass.xaml.cs">
+    <Compile Include="Views\Dialogs\RemoveClass.xaml.cs">
       <DependentUpon>RemoveClass.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\MainWindow.xaml">
@@ -112,15 +112,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\AddAssignment.xaml">
+    <Page Include="Views\Dialogs\AddAssignment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AddClass.xaml">
+    <Page Include="Views\Dialogs\AddClass.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\RemoveClass.xaml">
+    <Page Include="Views\Dialogs\RemoveClass.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
