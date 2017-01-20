@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="school_assignment_reminders.Views.Dialogs.AddAssignment"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:classes="clr-namespace:school_assignment_reminders.Classes"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:local="clr-namespace:school_assignment_reminders.Views"
@@ -24,11 +25,17 @@
             <Label Content="Assignment name: "
                    DockPanel.Dock="Left"
                    FontSize="18" />
-            <TextBox materialDesign:HintAssist.Hint="e.g. Homework #4"
-                     FontSize="18"
-                     Text="{Binding Source={StaticResource Assignment},
-                                    Path=Name,
-                                    UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Name="Name" materialDesign:HintAssist.Hint="e.g. Homework #4" FontSize="18">
+                <TextBox.Text>
+                    <Binding Path="Name"
+                             Source="{StaticResource Assignment}"
+                             UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <classes:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
         </DockPanel>
         <DockPanel Margin="10">
             <Label Content="Due on: "
@@ -37,10 +44,18 @@
             <DatePicker materialDesign:HintAssist.Hint="e.g. 1/24/2017"
                         CalendarStyle="{StaticResource StyleCalendar}"
                         FocusVisualStyle="{x:Null}"
-                        FontSize="18"
-                        SelectedDate="{Binding Source={StaticResource Assignment},
-                                               Path=Due,
-                                               UpdateSourceTrigger=PropertyChanged}" />
+                        Name="Date"
+                        FontSize="18">
+                <DatePicker.SelectedDate>
+                    <Binding Path="Due"
+                             Source="{StaticResource Assignment}"
+                             UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <classes:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </DatePicker.SelectedDate>
+            </DatePicker>
         </DockPanel>
         <DockPanel Margin="10">
             <Label Content="Any other notes: "
@@ -58,8 +73,21 @@
                 CommandParameter="{StaticResource Assignment}"
                 FontSize="22"
                 IsDefault="True"
-                IsTabStop="False"
-                Style="{DynamicResource MaterialDesignFlatButton}">
+                IsTabStop="False">
+            <Button.Style>
+                <Style BasedOn="{StaticResource MaterialDesignFlatButton}" TargetType="{x:Type Button}">
+                    <Setter Property="IsEnabled" Value="False" />
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=(Validation.HasError), ElementName=Date}" Value="False" />
+                                <Condition Binding="{Binding Path=(Validation.HasError), ElementName=Name}" Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="IsEnabled" Value="True" />
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
             Submit
         </Button>
         <Button Margin="10"
