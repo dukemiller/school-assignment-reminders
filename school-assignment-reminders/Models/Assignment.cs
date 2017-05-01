@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 using GalaSoft.MvvmLight;
 
@@ -23,22 +19,22 @@ namespace school_assignment_reminders.Models
         [XmlAttribute("name")]
         public string Name
         {
-            get { return _name; }
-            set { Set(() => Name, ref _name, value); }
+            get => _name;
+            set => Set(() => Name, ref _name, value);
         }
 
         [XmlAttribute("notes")]
         public string Notes
         {
-            get { return _notes; }
-            set { Set(() => Notes, ref _notes, value); }
+            get => _notes;
+            set => Set(() => Notes, ref _notes, value);
         }
 
         [XmlAttribute("due_at")]
         public DateTime Due
         {
-            get { return _due; }
-            set { Set(() => Due, ref _due, value); }
+            get => _due;
+            set => Set(() => Due, ref _due, value);
         }
 
         [XmlIgnore]

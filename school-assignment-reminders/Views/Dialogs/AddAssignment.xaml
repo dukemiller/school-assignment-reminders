@@ -80,8 +80,10 @@
                     <Style.Triggers>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding Path=(Validation.HasError), ElementName=Date}" Value="False" />
-                                <Condition Binding="{Binding Path=(Validation.HasError), ElementName=Name}" Value="False" />
+                                <Condition Binding="{Binding Path=(Validation.HasError), ElementName=Date}"
+                                           Value="False" />
+                                <Condition Binding="{Binding Path=(Validation.HasError), ElementName=Name}"
+                                           Value="False" />
                             </MultiDataTrigger.Conditions>
                             <Setter Property="IsEnabled" Value="True" />
                         </MultiDataTrigger>

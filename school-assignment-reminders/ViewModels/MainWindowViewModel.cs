@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Timers;
-using System.Windows;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MaterialDesignThemes.Wpf;
@@ -29,8 +25,7 @@ namespace school_assignment_reminders.ViewModels
             Classes = _settings.Classes;
 
             // refresh the assignment dates every hour
-            _timer = new Timer();
-            _timer.Interval = 1000 * 60 * 60; 
+            _timer = new Timer {Interval = 1000 * 60 * 60};
             _timer.Elapsed += (sender, args) => 
             {
                 foreach (var @class in Classes)
@@ -55,20 +50,20 @@ namespace school_assignment_reminders.ViewModels
 
         public Class SelectedClass
         {
-            get { return _selectedClass; }
-            set { Set(() => SelectedClass, ref _selectedClass, value); }
+            get => _selectedClass;
+            set => Set(() => SelectedClass, ref _selectedClass, value);
         }
 
         public Assignment SelectedAssignment
         {
-            get { return _selectedAssignment; }
-            set { Set(() => SelectedAssignment, ref _selectedAssignment, value); }
+            get => _selectedAssignment;
+            set => Set(() => SelectedAssignment, ref _selectedAssignment, value);
         }
         
         public ObservableCollection<Class> Classes
         {
-            get { return _classes; }
-            set { Set(() => Classes, ref _classes, value); }
+            get => _classes;
+            set => Set(() => Classes, ref _classes, value);
         }
 
         // 
