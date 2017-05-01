@@ -12,6 +12,7 @@
         Title="School assignment reminders"
         Width="650"
         Height="450"
+        ResizeMode="CanResizeWithGrip"
         FocusVisualStyle="{x:Null}"
         d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}"
         Background="{DynamicResource MaterialDesignPaper}"
